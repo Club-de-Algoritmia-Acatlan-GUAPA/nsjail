@@ -391,7 +391,7 @@ int reapProc(nsjconf_t* nsjconf) {
 		pid_t pid = p.first;
 		time_t diff = now - p.second.start;
 		if ((uint64_t)diff >= nsjconf->tlimit) {
-			LOG_I("pid=%d run time >= time limit (%ld >= %" PRIu64 ") (%s). Killing it",
+			LOG_EVALUATOR("[TIME_LIMIT]pid=%d run time >= time limit (%ld >= %" PRIu64 ") (%s). Killing it",
 			    pid, (long)diff, nsjconf->tlimit, p.second.remote_txt.c_str());
 			/*
 			 * Probably a kernel bug - some processes cannot be killed with KILL if

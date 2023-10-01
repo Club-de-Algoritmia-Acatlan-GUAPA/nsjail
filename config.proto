@@ -10,11 +10,12 @@ enum Mode {
 }
 /* Should be self explanatory */
 enum LogLevel {
-	DEBUG = 0;   /* Equivalent to the '-v' cmd-line option */
-	INFO = 1;    /* Default level */
-	WARNING = 2; /* Equivalent to the '-q' cmd-line option */
-	ERROR = 3;
-	FATAL = 4;
+    DEBUG = 0;	 /* Equivalent to the '-v' cmd-line option */
+    INFO = 1;	 /* Default level */
+    WARNING = 2; /* Equivalent to the '-q' cmd-line option */
+    ERROR = 3;
+    FATAL = 4;
+    EVALUATOR = 5;
 }
 message IdMap {
 	/* Empty string means "current uid/gid" */

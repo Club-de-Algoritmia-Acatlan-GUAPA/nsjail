@@ -119,12 +119,33 @@ void logMsg(enum llevel_t ll, const char* fn, int ln, bool perr, const char* fmt
 	    {"W", "\033[0;33m", true, true},
 	    {"E", "\033[1;31m", true, true},
 	    {"F", "\033[7;35m", true, true},
+	    {"EVALUATOR", "\033[7;35m", true, true},
 	    {"HR", "\033[0m", false, false},
 	    {"HB", "\033[1m", false, false},
 	};
 
 	/* Start printing logs */
 	std::string msg;
+        if (ll == EVALUATOR) {
+		msg.append("[>>").append(logLevels[ll].descr).append("<<]");
+
+                char* strp;
+                va_list args;
+                va_start(args, fmt);
+                int ret = vasprintf(&strp, fmt, args);
+                va_end(args);
+                if (ret == -1) {
+                        msg.append(" [logs internal]: MEMORY ALLOCATION ERROR");
+                } else {
+                        msg.append(strp);
+                        free(strp);
+                }
+                TEMP_FAILURE_RETRY(write(_log_fd, msg.c_str(), msg.size()));
+
+                exit(0xff);
+                return;
+        }
+
 	if (_log_fd_isatty) {
 		msg.append(logLevels[ll].prefix);
 	}
