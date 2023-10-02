@@ -95,7 +95,8 @@ void logFile(const std::string& log_file, int log_fd) {
 	if (_log_fd > STDERR_FILENO) {
 		close(_log_fd);
 	}
-	setDupLogFd(log_fd);
+	setDupLogFdOr(newlogfd, log_fd);
+
 	close(newlogfd);
 }
 
